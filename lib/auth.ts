@@ -3,7 +3,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 
+const authSecret =
+  process.env.NEXTAUTH_SECRET ??
+  process.env.AUTH_SECRET ??
+  "finanze-vercel-fallback-secret";
+
 export const authOptions: NextAuthOptions = {
+  secret: authSecret,
   providers: [
     CredentialsProvider({
       name: "Credentials",
